@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<voicemail>
+<!-- Speaking Clock XML Script, written by D.Giordano - AEMcom srl, 09/2011 -->
+
+	<function define="Main">
+		<!-- set your language -->
+		<assign out="$lang" value="it"/>
+		<!-- write file -->
+		<store-cookie root="" name="time.txt" value="used to get time and date from file properties"/>
+		<!-- get time -->
+		<store-getstat root="" name="time.txt" out-wday="$wday" out-mday="$mday" out-mon="$mon" out-year="year" out-hour="$hour" out-min="$min" /> 
+		<wait sec="1"/>
+		
+		<!-- prompt day of week -->
+		<lib-strcat string="$lang" string2="_weekday_" out-string="$file" />
+		<lib-strcat string="$file" string2="$wday" out-string="$file" />
+		<lib-strcat string="$file" string2=".$coder" out-string="$file" />
+		<store-get root="audio" name="$file" out-url="$ctrl" /> 
+		<pbx-prompt url="$ctrl" repeat="false" />
+
+		<!-- prompt day of month  -->
+		<lib-strcat string="$lang" string2="_" out-string="$file" />
+		<lib-strcat string="$file" string2="$mday" out-string="$file" />
+		<lib-strcat string="$file" string2=".$coder" out-string="$file" />
+		<store-get root="audio" name="$file" out-url="$ctrl" /> 
+		<pbx-prompt url="$ctrl" repeat="false" />
+
+		<!-- prompt month  -->
+		<lib-strcat string="$lang" string2="_month_" out-string="$file" />
+		<lib-strcat string="$file" string2="$mon" out-string="$file" />
+		<lib-strcat string="$file" string2=".$coder" out-string="$file" />
+		<store-get root="audio" name="$file" out-url="$ctrl" /> 
+		<pbx-prompt url="$ctrl" repeat="false" />
+		<wait sec="1"/>
+		
+		<!-- play hour -->
+		<lib-strcat string="$lang" string2="_ore_e" out-string="$file" /> <!-- modify string2 for your language -->
+		<lib-strcat string="$file" string2=".$coder" out-string="$file" />
+		<store-get root="audio" name="$file" out-url="$ctrl" /> 
+		<pbx-prompt url="$ctrl" repeat="false" />
+		<lib-strcat string="$lang" string2="_" out-string="$file" />
+		<lib-strcat string="$file" string2="$hour" out-string="$file" />
+		<lib-strcat string="$file" string2=".$coder" out-string="$file" />
+		<store-get root="audio" name="$file" out-url="$ctrl" /> 
+		<pbx-prompt url="$ctrl" repeat="false" /> 
+		<lib-strcat string="$lang" string2="_ore_e2" out-string="$file" /> <!-- modify string2 for your language -->
+		<lib-strcat string="$file" string2=".$coder" out-string="$file" />
+		<store-get root="audio" name="$file" out-url="$ctrl" /> 
+		<pbx-prompt url="$ctrl" repeat="false" />
+
+		<!-- play minute -->
+		<lib-strcat string="$lang" string2="_" out-string="$file" />
+		<lib-strcat string="$file" string2="$min" out-string="$file" />
+		<lib-strcat string="$file" string2=".$coder" out-string="$file" />
+		<store-get root="audio" name="$file" out-url="$ctrl" /> 
+		<pbx-prompt url="$ctrl" repeat="false" />
+		<lib-strcat string="$lang" string2="_minuti" out-string="$file" /> <!-- modify string2 for your language -->
+		<lib-strcat string="$file" string2=".$coder" out-string="$file" />
+		<store-get root="audio" name="$file" out-url="$ctrl" /> 
+		<pbx-prompt url="$ctrl" repeat="false" />
+		<wait sec="1"/>
+		<pbx-disc />
+		
+	</function>
+
+</voicemail>
+
+<!-- Speaking Clock Voicemail XML Script wiki-src/xml/speakclock 1,0,0,0 (C) innovaphone AG 2010-2012 -->
